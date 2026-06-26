@@ -269,10 +269,22 @@ await sleep(100);
   opacity:1;
   transition:opacity .4s ease;
 }
+.splashScreen{
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:20000;
+  padding:30px;
+}
+
 .splashScreen img{
-  width:min(86vw,520px);
-  max-height:90vh;
-  object-fit:contain;
+  max-width:90%;
+  max-height:90%;
+  width:auto;
+  height:auto;
 }
 .splashScreen.hide{
   opacity:0;
