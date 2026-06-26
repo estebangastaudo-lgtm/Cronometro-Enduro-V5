@@ -150,21 +150,12 @@ for(let i=prep;i>0;i--){
         launchPilot.textContent=riders[i+1].name;
         launchHint.textContent='Gap de largada';
 
-let lastBeepSecond=null;
-
-while(running){
-  let remain=Math.ceil((target-performance.now())/1000);
-  if(remain<=0)break;
-
-  launchCount.textContent=String(remain);
-
-  if(remain<=5 && remain!==lastBeepSecond){
-    beep(850,120);
-    lastBeepSecond=remain;
-  }
-
-  await sleep(100);
-}
+        while(running){
+          let remain=Math.ceil((target-performance.now())/1000);
+          if(remain<=0)break;
+          launchCount.textContent=String(remain);
+          await sleep(100);
+        }
       }
     }
 
