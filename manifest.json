@@ -1,1 +1,8 @@
-{"name":"Cronómetro Enduro V5.1","short_name":"Enduro V5.1","start_url":"./","display":"standalone","background_color":"#0b0f17","theme_color":"#0b0f17"}
+{
+  "name":"Enduro Pro",
+  "short_name":"Enduro Pro",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#0b0f17",
+  "theme_color":"#0b0f17"
+}
