@@ -149,7 +149,8 @@ for(let i=prep;i>0;i--){
         launchTitle.textContent='PRÓXIMA LARGADA';
         launchPilot.textContent=riders[i+1].name;
         launchHint.textContent='Gap de largada';
-
+        
+let ultimoSegundoSonado=null;
 
 while(running){
   let remain=Math.ceil((target-performance.now())/1000);
@@ -157,13 +158,13 @@ while(running){
 
   launchCount.textContent=String(remain);
 
-if(remain<=5){
+if(remain<=5 && remain!==ultimoSegundoSonado){
     beep(850,120);
-    await sleep(1000);
-}else{
-    await sleep(100);
+    ultimoSegundoSonado=remain;
 }
-  }
+
+await sleep(100);
+}
 
 
     if(running){
