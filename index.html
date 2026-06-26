@@ -117,19 +117,20 @@ async function startBeep(){
     launchPilot.textContent='';
     launchHint.textContent='Cuenta inicial';
 
-    for(let i=prep;i>0;i--){
-      if(!running)break;
-      launchOverlay.classList.remove('green');
-      launchCount.textContent=String(i);
+for(let i=prep;i>0;i--){
+  if(!running)break;
+  launchOverlay.classList.remove('green');
+  launchCount.textContent=String(i);
 
-      if(i<=5) beep(850,120);
+  if(i<=5) beep(850,120);
 
-      await sleep(1000);
-    }
+  await sleep(1000);
+}
 
     for(let i=0;i<riders.length;i++){
       if(!running)break;
 
+      // Este instante es la largada real. El verde coincide con el 0.
       launchOverlay.classList.add('green');
       launchTitle.textContent='LARGA';
       launchPilot.textContent=riders[i].name;
@@ -139,6 +140,7 @@ async function startBeep(){
 
       const launchAt=performance.now();
 
+      // Flash corto, sin sumar 2 segundos muertos al gap.
       await sleep(1000);
 
       if(i<riders.length-1){
@@ -148,21 +150,21 @@ async function startBeep(){
         launchPilot.textContent=riders[i+1].name;
         launchHint.textContent='Gap de largada';
 
-        let lastShown=null;
+let lastBeepSecond=null;
 
-        while(running){
-          let remain=Math.ceil((target-performance.now())/1000);
-          if(remain<=0)break;
+while(running){
+  let remain=Math.ceil((target-performance.now())/1000);
+  if(remain<=0)break;
 
-          launchCount.textContent=String(remain);
+  launchCount.textContent=String(remain);
 
-          if(remain<=5 && remain!==lastShown){
-            beep(850,120);
-          }
+  if(remain<=5 && remain!==lastBeepSecond){
+    beep(850,120);
+    lastBeepSecond=remain;
+  }
 
-          lastShown=remain;
-          await sleep(50);
-        }
+  await sleep(100);
+}
       }
     }
 
@@ -174,15 +176,12 @@ async function startBeep(){
       launchHint.textContent='Tocá cada piloto cuando pase';
       await sleep(1000);
     }
-
   }finally{
     launchMode=false;
     launchOverlay.classList.remove('show','green');
     document.body.classList.add('buttonsOnly');
     renderAll();
     save();
-  }
-}
   }
 }function resetTimeOnly(){running=false;launchMode=false;launchOverlay.classList.remove('show','green');elapsedMs=0;startPerf=0;if(rafId){cancelAnimationFrame(rafId);rafId=null}btnStartPause.textContent='Iniciar';renderAll();save()}function clearAll(){riders.forEach(r=>{r.events=[];r.redo=[];r.sectorIdx=0;r.lastTapEpoch=0});nextIndex=0;elapsedMs=0;running=false;launchMode=false;if(rafId){cancelAnimationFrame(rafId);rafId=null}btnStartPause.textContent='Iniciar';renderAll();save()}function snapshotCurrentSession(){return{id:uid(),name:elSessionName.value||`Tanda ${dayHistory.length+1}`,track:elTrackName.value||'',notes:elSessionNotes.value||'',setupNotes:elSetupNotes.value||'',dateISO:new Date().toISOString(),dateText:new Date().toLocaleString(),prepSec:getPrepSec(),gapSec:Math.round(getGapMs()/1000),sectors:getSectors(),riders:JSON.parse(JSON.stringify(riders))}}function finishSession(){if(riders.every(r=>r.events.length===0)){showToast('No hay tiempos para guardar');return}dayHistory.push(snapshotCurrentSession());saveDayHistory();showToast('Tanda guardada ✔');clearAll();if(!elSessionName.value)elSessionName.value=`Tanda ${dayHistory.length+1}`;renderAll();save()}function recomputeSectorIdx(r){let sec=getSectors();if(sec<=0){r.sectorIdx=0;return}let last=[...r.events].reverse().find(e=>e.kind==='SECTOR');r.sectorIdx=last?Number(last.sectorNo)%sec:0}function mark(idx){
   let tEpoch=Date.now(),dbl=getDblMs(),r=riders[idx];
