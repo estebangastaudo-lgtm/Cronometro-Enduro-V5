@@ -268,28 +268,22 @@ await sleep(100);
   z-index:20000;
   opacity:1;
   transition:opacity .4s ease;
-}
-.splashScreen{
-  position:fixed;
-  inset:0;
-  background:#000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:20000;
-  padding:30px;
+  overflow:hidden;
 }
 
 .splashScreen img{
-  max-width:90%;
-  max-height:90%;
-  width:auto;
-  height:auto;
+  width:100vw;
+  height:100vh;
+  object-fit:contain;
+  object-position:center center;
+  display:block;
 }
+
 .splashScreen.hide{
   opacity:0;
   pointer-events:none;
 }
+
 .splashScreen.gone{
   display:none;
 }
@@ -397,5 +391,11 @@ await sleep(100);
   a.remove();
   URL.revokeObjectURL(url);
   showToast('Jornada exportada ✔');
-}btnStartPause.onclick=()=>running?pause():start();btnReset.onclick=resetTimeOnly;btnFinishSession.onclick=()=>{if(confirm('¿Finalizar y guardar esta tanda?'))finishSession()};btnClearAll.onclick=()=>{if(confirm('¿Vaciar registros de la tanda actual?'))clearAll()};btnClearDay.onclick=()=>{if(confirm('¿Borrar la jornada actual completa?')){dayHistory=[];saveDayHistory();renderAll()}};btnExport.onclick=exportExcelLikeXls;btnToggleButtons.onclick=()=>{document.body.classList.toggle('buttonsOnly');save()};btnAddRider.onclick=()=>addRider();btnResetNames.onclick=()=>{if(confirm('¿Restaurar nombres por defecto?'))restoreNames()};[elPrepSec,elGap,elDblMs,elTrackName,elSessionName,elSessionNotes,elSetupNotes].forEach(el=>el.oninput=()=>{renderAll();save()});elSectors.onchange=()=>{riders.forEach(r=>{r.sectorIdx=0;r.redo=[]});renderAll();save()};loadDayHistory();load();ensureDefaults();renderAll();  setTimeout(()=>{   const splash=document.getElementById('splashScreen');   if(splash){     splash.classList.add('hide');     setTimeout(()=>splash.classList.add('gone'),450);   } },2000);  window.addEventListener('visibilitychange',save);window.addEventListener('beforeunload',save)})();
+}btnStartPause.onclick=()=>running?pause():start();btnReset.onclick=resetTimeOnly;btnFinishSession.onclick=()=>{if(confirm('¿Finalizar y guardar esta tanda?'))finishSession()};btnClearAll.onclick=()=>{if(confirm('¿Vaciar registros de la tanda actual?'))clearAll()};btnClearDay.onclick=()=>{if(confirm('¿Borrar la jornada actual completa?')){dayHistory=[];saveDayHistory();renderAll()}};btnExport.onclick=exportExcelLikeXls;btnToggleButtons.onclick=()=>{document.body.classList.toggle('buttonsOnly');save()};btnAddRider.onclick=()=>addRider();btnResetNames.onclick=()=>{if(confirm('¿Restaurar nombres por defecto?'))restoreNames()};[elPrepSec,elGap,elDblMs,elTrackName,elSessionName,elSessionNotes,elSetupNotes].forEach(el=>el.oninput=()=>{renderAll();save()});elSectors.onchange=()=>{riders.forEach(r=>{r.sectorIdx=0;r.redo=[]});renderAll();save()};loadDayHistory();load();ensureDefaults();renderAll();setTimeout(()=>{
+  const splash=document.getElementById('splashScreen');
+  if(splash){
+    splash.classList.add('hide');
+    setTimeout(()=>splash.classList.add('gone'),450);
+  }
+},2000);  setTimeout(()=>{   const splash=document.getElementById('splashScreen');   if(splash){     splash.classList.add('hide');     setTimeout(()=>splash.classList.add('gone'),450);   } },2000);  window.addEventListener('visibilitychange',save);window.addEventListener('beforeunload',save)})();
 </script></body></html>
