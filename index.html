@@ -88,7 +88,7 @@ function beep(freq=900,duration=120){
 
     osc.type = 'sine';
     osc.frequency.value = freq;
-    gain.gain.value = 0.30;
+    gain.gain.value = 0.20;
 
     osc.connect(gain);
     gain.connect(audioCtx.destination);
