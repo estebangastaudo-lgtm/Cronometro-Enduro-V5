@@ -258,7 +258,7 @@ await sleep(100);
     .title{font-size:18px;font-weight:bold;background:#d9e8ff;text-align:left}
     .meta{font-size:11px;color:#555;margin-bottom:6px}
     .totalrow td{background:#fafafa}
-    .splashScreen{
+      .splashScreen{
   position:fixed;
   inset:0;
   background:#000;
@@ -286,8 +286,7 @@ await sleep(100);
 
 .splashScreen.gone{
   display:none;
-}
-  </style></head><body><h1>Jornada Cronómetro Enduro</h1>`;
+}</style></head><body><h1>Jornada Cronómetro Enduro</h1>`;
 
   function lapsAndSectors(r, sectors){
     let laps=[];
@@ -397,5 +396,5 @@ await sleep(100);
     splash.classList.add('hide');
     setTimeout(()=>splash.classList.add('gone'),450);
   }
-},2000);  setTimeout(()=>{   const splash=document.getElementById('splashScreen');   if(splash){     splash.classList.add('hide');     setTimeout(()=>splash.classList.add('gone'),450);   } },2000);  window.addEventListener('visibilitychange',save);window.addEventListener('beforeunload',save)})();
+},2000);    window.addEventListener('beforeunload',save)})();
 </script></body></html>
